@@ -37,7 +37,7 @@ void pall_func(stack_t **stack, unsigned int line_num __attribute__((unused)))
 	current = *stack;
 	while (current)
 	{
-		printf("n: %d\n", current->n);
+		printf("%d\n", current->n);
 		current = current->prev;
 	}
 }
