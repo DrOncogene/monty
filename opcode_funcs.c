@@ -14,10 +14,15 @@ void push_func(stack_t **stack, unsigned int line_num)
 			free(data);
 		exit(EXIT_FAILURE);
 	}
-
 	if (*stack == NULL)
 	{
 		*stack = malloc(sizeof(stack_t));
+		if (*stack == NULL)
+		{
+			dprintf(2, "Error: malloc failed\n");
+			free_all();
+			exit(EXIT_FAILURE);
+		}
 		(*stack)->n = atoi(data);
 		(*stack)->prev = NULL;
 		(*stack)->next = NULL;
@@ -25,6 +30,12 @@ void push_func(stack_t **stack, unsigned int line_num)
 	else
 	{
 		new =  malloc(sizeof(stack_t));
+		if (new == NULL)
+		{
+			dprintf(2, "Error: malloc failed\n");
+			free_all();
+			exit(EXIT_FAILURE);
+		}
 		new->n = atoi(data);
 		new->next = NULL;
 		new->prev = *stack;
