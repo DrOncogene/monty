@@ -2,16 +2,14 @@
 
 stack_t *stack = NULL;
 FILE *byte_file = NULL;
-instruction_t *push = NULL;
-instruction_t *pall = NULL;
+instruction_t **opcodes = NULL;
 
 int main(int argc, char **argv)
 {
-	char *code, *opnames[] = {"push", "pall\n"};
+	char *code, *code_h, *curr_code, *opnames[] = {"push", "pall"};
 	unsigned int line_num, i;
 	size_t n;
 	ssize_t m;
-	instruction_t *opcodes[2];
 
 	if (argc != 2)
 	{
@@ -19,10 +17,6 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	define_push();
-	define_pall();
-	opcodes[0] = push;
-	opcodes[1] = pall;
 	byte_file = fopen(argv[1], "r");
 	if (byte_file == NULL)
 	{
@@ -30,39 +24,27 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
+	define_opcodes();
 	n = 0;
 	line_num = 0;
-
+	code = NULL;
 	while ((m = getline(&code, &n, byte_file)) >= 0)
 	{
+		code_h = code;
+		curr_code = strtok(code, " ");
 		for (i = 0; i < 2; i++)
 		{
-			if (strcmp(strtok(strdup(code), " "), opnames[i]) == 0)
+			if (strncmp(curr_code, opnames[i], strlen(opnames[i])) == 0)
 			{
+				free(code_h);
 				(opcodes[i]->f)(&stack, line_num);
+				break;
 			}
 		}
+		code = NULL;
 		line_num++;
 	}
+	free(code);
+	free_all();
 	return (0);
-}
-
-char *get_arg_at(unsigned int line_num)
-{
-	unsigned int i;
-	size_t n;
-	char *arg, *code, *saveptr;
-
-	n = 0;
-	rewind(byte_file);
-	for (i = 0; i <= line_num; i++)
-	{
-		if (getline(&code, &n, byte_file) == -1)
-			return (NULL);
-	}
-	saveptr = NULL;
-	strtok_r(code, " ", &saveptr);
-	arg = strtok_r(NULL, " ", &saveptr);
-
-	return (arg);
 }

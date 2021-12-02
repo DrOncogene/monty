@@ -6,7 +6,6 @@
 
 extern FILE *byte_file;
 extern stack_t *stack;
-extern instruction_t *push;
-extern instruction_t *pall;
+extern instruction_t **opcodes;
 
 #endif

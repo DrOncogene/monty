@@ -6,9 +6,12 @@ void push_func(stack_t **stack, unsigned int line_num)
 	stack_t *new;
 
 	data = get_arg_at(line_num);
-	if (data == NULL)
+	if (data == NULL || check_int(data) == -1)
 	{
 		dprintf(2, "L%u: usage: push integer\n", line_num + 1);
+		free_all();
+		if (data)
+			free(data);
 		exit(EXIT_FAILURE);
 	}
 
@@ -27,6 +30,7 @@ void push_func(stack_t **stack, unsigned int line_num)
 		new->prev = *stack;
 		*stack = new;
 	}
+	free(data);
 }
 
 void pall_func(stack_t **stack, unsigned int line_num __attribute__((unused)))
