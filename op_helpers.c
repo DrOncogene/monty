@@ -54,7 +54,7 @@ void run_op(char *code, stack_t **stack, FILE *file, int line_num)
 int opcode_index(char *opcode)
 {
 	char *opnames[] = {"push", "pall", "pint", "pop", "swap", "add",
-		"nop", "sub", "div", "mul", "mod", "pchar", "pstr", NULL};
+		"nop", "sub", "div", "mul", "mod", "pchar", "pstr", "rotl", NULL};
 	int i, match;
 
 	if (opcode == NULL || strlen(opcode) == 1)

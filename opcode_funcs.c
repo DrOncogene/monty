@@ -359,3 +359,47 @@ int pstr_func(stack_t **stack, unsigned int line_num
 
 	return (0);
 }
+
+/**
+  * rotl_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int rotl_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top, *last, *second_last;
+
+	top = *stack;
+	if (top == NULL)
+		return (0);
+
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (0);
+
+	last = second_top;
+	while (last && last->prev)
+		last = last->prev;
+
+	second_last = last;
+	last = second_last->prev;
+
+	top->prev = NULL;
+	if (last)
+	{
+		top->next = last;
+		last->prev = top;
+	}
+	else if (second_last)
+	{
+		top->next = second_last;
+		second_last->prev = top;
+	}
+
+	second_top->next = NULL;
+	*stack = second_top;
+
+	return (0);
+}
