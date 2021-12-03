@@ -325,3 +325,37 @@ int pchar_func(stack_t **stack, unsigned int line_num
 
 	return (0);
 }
+
+/**
+  * pstr_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int pstr_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top;
+
+	top = *stack;
+	if (top == NULL)
+	{
+		printf("\n");
+		return (0);
+	}
+
+	while (top)
+	{
+		if (top->n == 0)
+			break;
+		if (isascii(top->n))
+			printf("%c", top->n);
+		else
+			break;
+
+		top = top->prev;
+	}
+	printf("\n");
+
+	return (0);
+}

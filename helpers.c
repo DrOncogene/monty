@@ -8,14 +8,14 @@
 int define_opcodes(void)
 {
 	char *opnames[] = {"push", "pall", "pint", "pop", "swap", "add",
-		"nop", "sub", "div", "mul", "mod", "pchar", NULL};
+		"nop", "sub", "div", "mul", "mod", "pchar", "pstr", NULL};
 	int i;
 
 	int (*opfuncs[])(stack_t **, unsigned int, ...) = {push_func,
 	pall_func, pint_func, pop_func, swap_func, add_func, nop_func,
-	sub_func, div_func, mul_func, mod_func, pchar_func};
+	sub_func, div_func, mul_func, mod_func, pchar_func, pstr_func};
 	i = 0;
-	opcodes = malloc(sizeof(instruction_t *) * 13);
+	opcodes = malloc(sizeof(instruction_t *) * 14);
 	while (opnames[i])
 	{
 		opcodes[i] = malloc(sizeof(instruction_t));
