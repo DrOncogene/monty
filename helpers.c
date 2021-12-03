@@ -71,8 +71,16 @@ int check_int(char *str)
 
 	while (str[i] && i < len_str)
 	{
-		if (str[i] - '0' < 0 || str[i] - '0' > 9)
-			return (-1);
+		if (i == 0)
+		{
+			if (!(isdigit(str[i]) || str[i] == '+' || str[i] == '-'))
+				return (-1);
+		}
+		else
+		{
+			if (!(isdigit(str[i])))
+				return (-1);
+		}
 
 		i++;
 	}
