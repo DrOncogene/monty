@@ -47,6 +47,6 @@ int sub_func(stack_t **, unsigned int, ...);
 int div_func(stack_t **, unsigned int, ...);
 int mul_func(stack_t **, unsigned int, ...);
 int mod_func(stack_t **, unsigned int, ...);
-
+int pchar_func(stack_t **, unsigned int, ...);
 
 #endif

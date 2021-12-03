@@ -7,15 +7,15 @@
   */
 int define_opcodes(void)
 {
-	char *opnames[] = {"push", "pall", "pint", "pop", "swap",
-		"add", "nop", "sub", "div", "mul", "mod", NULL};
+	char *opnames[] = {"push", "pall", "pint", "pop", "swap", "add",
+		"nop", "sub", "div", "mul", "mod", "pchar", NULL};
 	int i;
 
 	int (*opfuncs[])(stack_t **, unsigned int, ...) = {push_func,
 	pall_func, pint_func, pop_func, swap_func, add_func, nop_func,
-	sub_func, div_func, mul_func, mod_func};
+	sub_func, div_func, mul_func, mod_func, pchar_func};
 	i = 0;
-	opcodes = malloc(sizeof(instruction_t *) * 11);
+	opcodes = malloc(sizeof(instruction_t *) * 13);
 	while (opnames[i])
 	{
 		opcodes[i] = malloc(sizeof(instruction_t));
@@ -26,6 +26,7 @@ int define_opcodes(void)
 		opcodes[i]->f = opfuncs[i];
 		i++;
 	}
+	opcodes[i] = NULL;
 	return (0);
 }
 
@@ -39,8 +40,12 @@ void free_all(stack_t *stack)
 	int i;
 	stack_t *stack_hold;
 
-	for (i = 0; i < 11; i++)
+	i = 0;
+	while (opcodes[i])
+	{
 		free(opcodes[i]);
+		i++;
+	}
 	free(opcodes);
 
 	while (stack)
@@ -130,6 +135,12 @@ void print_error_exit(int error_num, unsigned int line_num)
 			break;
 		case 510:
 			dprintf(2, "L%u: can't mod, stack too short\n", line_num);
+			break;
+		case 511:
+			dprintf(2, "L%u: can't pchar, stack empty\n", line_num);
+			break;
+		case 512:
+			dprintf(2, "L%u: can't pchar, value out of range\n", line_num);
 			break;
 	}
 	exit(EXIT_FAILURE);

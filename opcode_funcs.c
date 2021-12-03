@@ -85,7 +85,6 @@ int pint_func(stack_t **stack, unsigned int line_num
 	return (0);
 }
 
-
 /**
   * pop_func - function for push opcode
   * @stack: the monty stack
@@ -300,6 +299,29 @@ int mod_func(stack_t **stack, unsigned int line_num
 	second_top->next = NULL;
 	free(top);
 	*stack = second_top;
+
+	return (0);
+}
+
+/**
+  * pchar_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int pchar_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top;
+
+	top = *stack;
+	if (top == NULL)
+		return (511);
+
+	if (isascii(top->n))
+		printf("%c\n", top->n);
+	else
+		return(512);
 
 	return (0);
 }
