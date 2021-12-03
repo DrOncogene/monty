@@ -14,6 +14,7 @@ int main(int argc, char **argv)
 	char *code, *code_h;
 	size_t n;
 	unsigned int line_num;
+	int status;
 
 	if (argc != 2)
 	{
@@ -28,7 +29,9 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	define_opcodes();
+	status = define_opcodes();
+	if (status > 0)
+		print_error_exit(status, 0);
 	line_num = 0;
 	code = NULL;
 	n = 0;

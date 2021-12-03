@@ -100,12 +100,43 @@ int pop_func(stack_t **stack, unsigned int line_num
 	top = *stack;
 	if (top == NULL)
 		return (503);
+
 	second_top = top->prev;
 	if (second_top)
-	{
 		second_top->next = NULL;
-	}
+
 	free(top);
+	*stack = second_top;
+
+	return (0);
+}
+
+/**
+  * swap_func - swaps the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int swap_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top, *third_top;
+
+	top = *stack;
+	if (stack == NULL)
+		return (504);
+
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (504);
+
+	third_top = second_top->prev;
+	if (third_top)
+		third_top->next = top;
+	top->prev = third_top;
+	top->next = second_top;
+	second_top->prev = top;
+	second_top->next = NULL;
 	*stack = second_top;
 
 	return (0);
