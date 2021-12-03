@@ -102,6 +102,8 @@ void print_error_exit(int error_num, unsigned int line_num)
 		case 503:
 			dprintf(2, "L%u: can't pop an empty stack\n", line_num);
 			break;
+		case 504:
+			dprintf(2, "L%u: can't swap, stack too short\n", line_num);
 	}
 	exit(EXIT_FAILURE);
 }
