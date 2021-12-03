@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 		opcode = strtok(code, " ");
 		arg = strtok(NULL, " ");
 		idx = opcode_index(opcode);
-		if (idx != -1)
+		if (idx >= 0)
 		{
 			status = (opcodes[idx]->f)(&stack, line_num, arg);
 			if (status > 0)
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 				print_error_exit(status, line_num + 1);
 			}
 		}
-		else
+		else if (idx == -1)
 		{
 			free_all(stack);
 			if (*(opcode + strlen(opcode) - 1) == '\n')
@@ -69,6 +69,9 @@ int opcode_index(char *opcode)
 {
 	char *opnames[] = {"push", "pall", NULL};
 	int i, match;
+
+	if (strlen(opcode) == 1)
+		return (-2);
 
 	i = 0;
 	while (opnames[i])
