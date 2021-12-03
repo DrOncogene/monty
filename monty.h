@@ -4,8 +4,7 @@
 #include "opcodes.h"
 #include "helpers.h"
 
-extern FILE *byte_file;
-extern stack_t *stack;
 extern instruction_t **opcodes;
+int opcode_index(char *opcode);
 
 #endif

@@ -1,8 +1,8 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 int define_opcodes(void);
-char *get_arg_at(unsigned int);
-void free_all(void);
+void print_error_exit(int error_num, unsigned int line_num);
+void free_all(stack_t *);
 int check_int(char *str);
 
 #endif

@@ -1,27 +1,26 @@
 #include "monty.h"
 
-void push_func(stack_t **stack, unsigned int line_num)
+int push_func(stack_t **stack, unsigned int line_num, ...)
 {
 	char *data;
 	stack_t *new;
+	va_list ap;
 
-	data = get_arg_at(line_num);
+	va_start(ap, line_num);
+	data = va_arg(ap, char *);
+	va_end(ap);
 	if (data == NULL || check_int(data) == -1)
 	{
-		dprintf(2, "L%u: usage: push integer\n", line_num + 1);
-		free_all();
-		if (data)
-			free(data);
-		exit(EXIT_FAILURE);
+		free_all(*stack);
+		return (500);
 	}
 	if (*stack == NULL)
 	{
 		*stack = malloc(sizeof(stack_t));
 		if (*stack == NULL)
 		{
-			dprintf(2, "Error: malloc failed\n");
-			free_all();
-			exit(EXIT_FAILURE);
+			free_all(*stack);
+			return (501);
 		}
 		(*stack)->n = atoi(data);
 		(*stack)->prev = NULL;
@@ -32,19 +31,19 @@ void push_func(stack_t **stack, unsigned int line_num)
 		new =  malloc(sizeof(stack_t));
 		if (new == NULL)
 		{
-			dprintf(2, "Error: malloc failed\n");
-			free_all();
-			exit(EXIT_FAILURE);
+			free_all(*stack);
+			return (501);
 		}
 		new->n = atoi(data);
 		new->next = NULL;
 		new->prev = *stack;
 		*stack = new;
 	}
-	free(data);
+	return (0);
 }
 
-void pall_func(stack_t **stack, unsigned int line_num __attribute__((unused)))
+int pall_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
 {
 	stack_t *current;
 
@@ -55,4 +54,5 @@ void pall_func(stack_t **stack, unsigned int line_num __attribute__((unused)))
 		printf("%d\n", current->n);
 		current = current->prev;
 	}
+	return (0);
 }
