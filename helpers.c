@@ -7,13 +7,13 @@
   */
 int define_opcodes(void)
 {
-	char *opnames[] = {"push", "pall", "pint", "pop", "swap", NULL};
+	char *opnames[] = {"push", "pall", "pint", "pop", "swap", "add", NULL};
 	int i;
 
 	int (*opfuncs[])(stack_t **, unsigned int, ...) = {push_func,
-	pall_func, pint_func, pop_func, swap_func};
+	pall_func, pint_func, pop_func, swap_func, add_func};
 	i = 0;
-	opcodes = malloc(sizeof(instruction_t *) * 5);
+	opcodes = malloc(sizeof(instruction_t *) * 6);
 	while (opnames[i])
 	{
 		opcodes[i] = malloc(sizeof(instruction_t));
@@ -37,7 +37,7 @@ void free_all(stack_t *stack)
 	int i;
 	stack_t *stack_hold;
 
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < 6; i++)
 		free(opcodes[i]);
 	free(opcodes);
 
@@ -110,6 +110,9 @@ void print_error_exit(int error_num, unsigned int line_num)
 			break;
 		case 504:
 			dprintf(2, "L%u: can't swap, stack too short\n", line_num);
+			break;
+		case 505:
+			dprintf(2, "L%u: can't add, stack too short\n", line_num);
 	}
 	exit(EXIT_FAILURE);
 }

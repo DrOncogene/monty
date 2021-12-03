@@ -141,3 +141,31 @@ int swap_func(stack_t **stack, unsigned int line_num
 
 	return (0);
 }
+
+/**
+  * add_func - adds the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int add_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top;
+	int res;
+
+	top = *stack;
+	if (top == NULL)
+		return (505);
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (505);
+
+	res = top->n + second_top->n;
+	second_top->n = res;
+	second_top->next = NULL;
+	free(top);
+	*stack = second_top;
+
+	return (0);
+}
