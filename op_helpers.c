@@ -20,6 +20,8 @@ void run_op(char *code, stack_t **stack, FILE *file, int line_num)
 	opcode = strtok(opcode, "\n");
 	arg = strtok(arg, "\t");
 	arg = strtok(arg, "\n");
+	if (opcode[0] == '#')
+		return;
 	idx = opcode_index(opcode);
 	if (idx >= 0)
 	{
