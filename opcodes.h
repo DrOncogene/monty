@@ -43,6 +43,10 @@ int pop_func(stack_t **, unsigned int, ...);
 int swap_func(stack_t **, unsigned int, ...);
 int add_func(stack_t **, unsigned int, ...);
 int nop_func(stack_t **, unsigned int, ...);
+int sub_func(stack_t **, unsigned int, ...);
+int div_func(stack_t **, unsigned int, ...);
+int mul_func(stack_t **, unsigned int, ...);
+int mod_func(stack_t **, unsigned int, ...);
 
 
 #endif
