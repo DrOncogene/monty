@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 
 int opcode_index(char *opcode)
 {
-	char *opnames[] = {"push", "pall", "pint", "pop", NULL};
+	char *opnames[] = {"push", "pall", NULL};
 	int i, match;
 
 	i = 0;
