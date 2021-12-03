@@ -8,13 +8,14 @@
 int define_opcodes(void)
 {
 	char *opnames[] = {"push", "pall", "pint", "pop", "swap",
-		"add", "nop", NULL};
+		"add", "nop", "sub", "div", "mul", "mod", NULL};
 	int i;
 
 	int (*opfuncs[])(stack_t **, unsigned int, ...) = {push_func,
-	pall_func, pint_func, pop_func, swap_func, add_func, nop_func};
+	pall_func, pint_func, pop_func, swap_func, add_func, nop_func,
+	sub_func, div_func, mul_func, mod_func};
 	i = 0;
-	opcodes = malloc(sizeof(instruction_t *) * 7);
+	opcodes = malloc(sizeof(instruction_t *) * 11);
 	while (opnames[i])
 	{
 		opcodes[i] = malloc(sizeof(instruction_t));
@@ -38,7 +39,7 @@ void free_all(stack_t *stack)
 	int i;
 	stack_t *stack_hold;
 
-	for (i = 0; i < 7; i++)
+	for (i = 0; i < 11; i++)
 		free(opcodes[i]);
 	free(opcodes);
 
@@ -114,6 +115,22 @@ void print_error_exit(int error_num, unsigned int line_num)
 			break;
 		case 505:
 			dprintf(2, "L%u: can't add, stack too short\n", line_num);
+			break;
+		case 506:
+			dprintf(2, "L%u: can't sub, stack too short\n", line_num);
+			break;
+		case 507:
+			dprintf(2, "L%u: can't div, stack too short\n", line_num);
+			break;
+		case 508:
+			dprintf(2, "L%u: division by zero\n", line_num);
+			break;
+		case 509:
+			dprintf(2, "L%u: can't mul, stack too short\n", line_num);
+			break;
+		case 510:
+			dprintf(2, "L%u: can't mod, stack too short\n", line_num);
+			break;
 	}
 	exit(EXIT_FAILURE);
 }

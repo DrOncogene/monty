@@ -183,3 +183,123 @@ int nop_func(stack_t **stack, unsigned int line_num, ...)
 		return (0);
 	return (0);
 }
+
+/**
+  * sub_func - adds the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int sub_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top;
+	int res;
+
+	top = *stack;
+	if (top == NULL)
+		return (506);
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (506);
+
+	res = second_top->n - top->n;
+	second_top->n = res;
+	second_top->next = NULL;
+	free(top);
+	*stack = second_top;
+
+	return (0);
+}
+
+/**
+  * div_func - adds the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int div_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top;
+	int res;
+
+	top = *stack;
+	if (top == NULL)
+		return (507);
+
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (507);
+
+	if (top->n == 0)
+		return (508);
+
+	res = second_top->n / top->n;
+	second_top->n = res;
+	second_top->next = NULL;
+	free(top);
+	*stack = second_top;
+
+	return (0);
+}
+
+/**
+  * mul_func - adds the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int mul_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top;
+	int res;
+
+	top = *stack;
+	if (top == NULL)
+		return (509);
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (509);
+
+	res = second_top->n * top->n;
+	second_top->n = res;
+	second_top->next = NULL;
+	free(top);
+	*stack = second_top;
+
+	return (0);
+}
+
+/**
+  * mod_func - adds the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: 0 if successful, an error num otherwise
+  */
+int mod_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top;
+	int res;
+
+	top = *stack;
+	if (top == NULL)
+		return (510);
+
+	second_top = top->prev;
+	if (second_top == NULL)
+		return (510);
+
+	if (top->n == 0)
+		return (508);
+
+	res = second_top->n % top->n;
+	second_top->n = res;
+	second_top->next = NULL;
+	free(top);
+	*stack = second_top;
+
+	return (0);
+}
