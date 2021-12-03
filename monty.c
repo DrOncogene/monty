@@ -40,15 +40,16 @@ int main(int argc, char **argv)
 			{
 				fclose(byte_file);
 				free(code_h);
+				free_all(stack);
 				print_error_exit(status, line_num + 1);
 			}
 		}
 		else
 		{
 			free_all(stack);
-			if (*(code + strlen(code) - 1) == '\n')
-				code[strlen(code) - 1] = '\0';
-			dprintf(2, "L%u: unknown instruction %s\n", line_num + 1, code);
+			if (*(opcode + strlen(opcode) - 1) == '\n')
+				opcode[strlen(opcode) - 1] = '\0';
+			dprintf(2, "L%u: unknown instruction %s\n", line_num + 1, opcode);
 			free(code_h);
 			fclose(byte_file);
 			exit(EXIT_FAILURE);
@@ -66,7 +67,7 @@ int main(int argc, char **argv)
 
 int opcode_index(char *opcode)
 {
-	char *opnames[] = {"push", "pall", NULL};
+	char *opnames[] = {"push", "pall", "pint", NULL};
 	int i, match;
 
 	i = 0;

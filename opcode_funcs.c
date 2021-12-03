@@ -56,3 +56,16 @@ int pall_func(stack_t **stack, unsigned int line_num
 	}
 	return (0);
 }
+
+int pint_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *current;
+
+	current = *stack;
+	if (current == NULL)
+		return (502);
+	printf("%d\n", current->n);
+
+	return (0);
+}

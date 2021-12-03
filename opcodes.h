@@ -38,5 +38,6 @@ typedef struct instruction_s
 
 int push_func(stack_t **, unsigned int, ...);
 int pall_func(stack_t **, unsigned int, ...);
+int pint_func(stack_t **, unsigned int, ...);
 
 #endif
