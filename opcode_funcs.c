@@ -123,7 +123,7 @@ int swap_func(stack_t **stack, unsigned int line_num
 	stack_t *top, *second_top, *third_top;
 
 	top = *stack;
-	if (stack == NULL)
+	if (top == NULL)
 		return (504);
 
 	second_top = top->prev;
