@@ -2,13 +2,13 @@
 
 int define_opcodes(void)
 {
-	char *opnames[] = {"push", "pall", "pint", NULL};
+	char *opnames[] = {"push", "pall", "pint", "pop", NULL};
 	int i;
 
 	int (*opfuncs[])(stack_t **, unsigned int, ...) = {push_func,
-	pall_func, pint_func};
+	pall_func, pint_func, pop_func};
 	i = 0;
-	opcodes = malloc(sizeof(instruction_t *) * 3);
+	opcodes = malloc(sizeof(instruction_t *) * 4);
 	while (opnames[i])
 	{
 		opcodes[i] = malloc(sizeof(instruction_t));
@@ -27,7 +27,7 @@ void free_all(stack_t *stack)
 	int i;
 	stack_t *stack_hold;
 
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < 4; i++)
 		free(opcodes[i]);
 	free(opcodes);
 
@@ -77,6 +77,9 @@ void print_error_exit(int error_num, unsigned int line_num)
 			break;
 		case 502:
 			dprintf(2, "L%u: can't pint, stack empty\n", line_num);
+			break;
+		case 503:
+			dprintf(2, "L%u: can't pop an empty stack\n", line_num);
 			break;
 	}
 	exit(EXIT_FAILURE);

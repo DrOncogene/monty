@@ -60,12 +60,31 @@ int pall_func(stack_t **stack, unsigned int line_num
 int pint_func(stack_t **stack, unsigned int line_num
 		__attribute__((unused)), ...)
 {
-	stack_t *current;
+	stack_t *top;
 
-	current = *stack;
-	if (current == NULL)
+	top = *stack;
+	if (top == NULL)
 		return (502);
-	printf("%d\n", current->n);
+	printf("%d\n", top->n);
+
+	return (0);
+}
+
+int pop_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *second_top;
+
+	top = *stack;
+	if (top == NULL)
+		return (503);
+	second_top = top->prev;
+	if (second_top)
+	{
+		second_top->next = NULL;
+	}
+	free(top);
+	*stack = second_top;
 
 	return (0);
 }
