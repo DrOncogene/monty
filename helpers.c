@@ -66,8 +66,6 @@ int check_int(char *str)
 
 	i = 0;
 	len_str = strlen(str);
-	if (*(str + len_str - 1) == '\n')
-		len_str--;
 
 	while (str[i] && i < len_str)
 	{

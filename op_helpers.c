@@ -17,7 +17,9 @@ void run_op(char *code, stack_t **stack, FILE *file, int line_num)
 	opcode = strtok(code, " ");
 	arg = strtok(NULL, " ");
 	opcode = strtok(opcode, "\t");
+	opcode = strtok(opcode, "\n");
 	arg = strtok(arg, "\t");
+	arg = strtok(arg, "\n");
 	idx = opcode_index(opcode);
 	if (idx >= 0)
 	{
@@ -52,14 +54,14 @@ int opcode_index(char *opcode)
 	char *opnames[] = {"push", "pall", "pint", "pop", "swap", NULL};
 	int i, match;
 
-	if (strlen(opcode) == 1)
+	if (opcode == NULL || strlen(opcode) == 1)
 		return (-2);
 
 	i = 0;
 	while (opnames[i])
 	{
 		match = 0;
-		if (strncmp(opcode, opnames[i], strlen(opnames[i])) == 0)
+		if (strncmp(opcode, opnames[i], strlen(opcode)) == 0)
 		{
 			match = 1;
 			break;
