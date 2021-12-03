@@ -1,5 +1,11 @@
 #include "monty.h"
 
+/**
+  * push_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: 0 if successful, or an error num if not
+  */
 int push_func(stack_t **stack, unsigned int line_num, ...)
 {
 	char *data;
@@ -42,6 +48,13 @@ int push_func(stack_t **stack, unsigned int line_num, ...)
 	return (0);
 }
 
+
+/**
+  * pall_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: always 0
+  */
 int pall_func(stack_t **stack, unsigned int line_num
 		__attribute__((unused)), ...)
 {
@@ -57,6 +70,13 @@ int pall_func(stack_t **stack, unsigned int line_num
 	return (0);
 }
 
+
+/**
+  * pint_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: 0 if successful, an error num otherwise
+  */
 int pint_func(stack_t **stack, unsigned int line_num
 		__attribute__((unused)), ...)
 {
@@ -70,6 +90,13 @@ int pint_func(stack_t **stack, unsigned int line_num
 	return (0);
 }
 
+
+/**
+  * pop_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: 0 if successful, an error otherwise
+  */
 int pop_func(stack_t **stack, unsigned int line_num
 		__attribute__((unused)), ...)
 {

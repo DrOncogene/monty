@@ -1,5 +1,10 @@
 #include "monty.h"
 
+/**
+  * define_opcodes - creates the array of opcodes structs
+  * none
+  * Return: 0 if successful, -1 otherwise
+  */
 int define_opcodes(void)
 {
 	char *opnames[] = {"push", "pall", "pint", "pop", NULL};
@@ -22,6 +27,11 @@ int define_opcodes(void)
 	return (0);
 }
 
+/**
+  * free_all - frees the opcodes struct array and the stack
+  * @stack: the monty stack
+  * Return: nothing
+  */
 void free_all(stack_t *stack)
 {
 	int i;
@@ -45,6 +55,11 @@ void free_all(stack_t *stack)
 	}
 }
 
+/**
+  * check_int - checks if all letters in str are digits
+  * @str: the string arg to an opcode
+  * Return: 0 if successful, -1 otherwise
+  */
 int check_int(char *str)
 {
 	size_t i, len_str;
@@ -65,6 +80,12 @@ int check_int(char *str)
 	return (0);
 }
 
+/**
+  * print_error_exit - prints error messages and exit the program
+  * @error_num: the error number
+  * @line_num: the current line number
+  * Return: nothing
+  */
 void print_error_exit(int error_num, unsigned int line_num)
 {
 	switch (error_num)

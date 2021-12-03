@@ -1,14 +1,19 @@
 #include "monty.h"
 instruction_t **opcodes = NULL;
 
+/**
+  * main - main function of the program
+  * @argc: arg count
+  * @argv: arg vector
+  * Return: alway zero, exits if error occurs
+  */
 int main(int argc, char **argv)
 {
 	stack_t *stack = NULL;
 	FILE *byte_file;
-	char *opcode, *code, *code_h, *arg;
+	char *code, *code_h;
 	size_t n;
 	unsigned int line_num;
-	int idx, status;
 
 	if (argc != 2)
 	{
@@ -30,30 +35,7 @@ int main(int argc, char **argv)
 	while (getline(&code, &n, byte_file) != -1)
 	{
 		code_h = code;
-		opcode = strtok(code, " ");
-		arg = strtok(NULL, " ");
-		idx = opcode_index(opcode);
-		if (idx >= 0)
-		{
-			status = (opcodes[idx]->f)(&stack, line_num, arg);
-			if (status > 0)
-			{
-				fclose(byte_file);
-				free(code_h);
-				free_all(stack);
-				print_error_exit(status, line_num + 1);
-			}
-		}
-		else if (idx == -1)
-		{
-			free_all(stack);
-			if (*(opcode + strlen(opcode) - 1) == '\n')
-				opcode[strlen(opcode) - 1] = '\0';
-			dprintf(2, "L%u: unknown instruction %s\n", line_num + 1, opcode);
-			free(code_h);
-			fclose(byte_file);
-			exit(EXIT_FAILURE);
-		}
+		run_op(code, &stack, byte_file, line_num);
 		free(code_h);
 		code = NULL;
 		line_num++;
@@ -63,30 +45,4 @@ int main(int argc, char **argv)
 	fclose(byte_file);
 
 	return (0);
-}
-
-int opcode_index(char *opcode)
-{
-	char *opnames[] = {"push", "pall", NULL};
-	int i, match;
-
-	if (strlen(opcode) == 1)
-		return (-2);
-
-	i = 0;
-	while (opnames[i])
-	{
-		match = 0;
-		if (strncmp(opcode, opnames[i], strlen(opnames[i])) == 0)
-		{
-			match = 1;
-			break;
-		}
-		i++;
-	}
-
-	if (match == 1)
-		return (i);
-	else
-		return (-1);
 }

@@ -5,6 +5,7 @@
 #include "helpers.h"
 
 extern instruction_t **opcodes;
+void run_op(char *, stack_t **, FILE *, int);
 int opcode_index(char *opcode);
 
 #endif
