@@ -42,6 +42,7 @@ int pint_func(stack_t **, unsigned int, ...);
 int pop_func(stack_t **, unsigned int, ...);
 int swap_func(stack_t **, unsigned int, ...);
 int add_func(stack_t **, unsigned int, ...);
+int nop_func(stack_t **, unsigned int, ...);
 
 
 #endif

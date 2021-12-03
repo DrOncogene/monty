@@ -7,13 +7,14 @@
   */
 int define_opcodes(void)
 {
-	char *opnames[] = {"push", "pall", "pint", "pop", "swap", "add", NULL};
+	char *opnames[] = {"push", "pall", "pint", "pop", "swap",
+		"add", "nop", NULL};
 	int i;
 
 	int (*opfuncs[])(stack_t **, unsigned int, ...) = {push_func,
-	pall_func, pint_func, pop_func, swap_func, add_func};
+	pall_func, pint_func, pop_func, swap_func, add_func, nop_func};
 	i = 0;
-	opcodes = malloc(sizeof(instruction_t *) * 6);
+	opcodes = malloc(sizeof(instruction_t *) * 7);
 	while (opnames[i])
 	{
 		opcodes[i] = malloc(sizeof(instruction_t));
@@ -37,7 +38,7 @@ void free_all(stack_t *stack)
 	int i;
 	stack_t *stack_hold;
 
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < 7; i++)
 		free(opcodes[i]);
 	free(opcodes);
 

@@ -169,3 +169,17 @@ int add_func(stack_t **stack, unsigned int line_num
 
 	return (0);
 }
+
+/**
+  * nop_func - adds the top two stack items
+  * @stack: the monty stack
+  * @line_num: current line number
+  * Return: always 0
+  */
+int nop_func(stack_t **stack, unsigned int line_num, ...)
+{
+	/* just gimmick */
+	if (stack && line_num)
+		return (0);
+	return (0);
+}
