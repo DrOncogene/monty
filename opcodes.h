@@ -51,5 +51,7 @@ int pchar_func(stack_t **, unsigned int, ...);
 int pstr_func(stack_t **, unsigned int, ...);
 int rotl_func(stack_t **, unsigned int, ...);
 int rotr_func(stack_t **, unsigned int, ...);
+int queue_mode(stack_t **, unsigned int, ...);
+int stack_mode(stack_t **, unsigned int, ...);
 
 #endif

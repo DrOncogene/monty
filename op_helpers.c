@@ -55,7 +55,7 @@ int opcode_index(char *opcode)
 {
 	char *opnames[] = {"push", "pall", "pint", "pop", "swap", "add",
 		"nop", "sub", "div", "mul", "mod", "pchar", "pstr", "rotl",
-		"rotr", NULL};
+		"rotr", "queue", "isstack", "stack", NULL};
 	int i, match;
 
 	if (opcode == NULL || strlen(opcode) == 1)
