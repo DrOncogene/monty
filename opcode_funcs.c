@@ -37,6 +37,7 @@ int push_func(stack_t **stack, unsigned int line_num, ...)
 		new->n = atoi(data);
 		new->next = NULL;
 		new->prev = *stack;
+		(*stack)->next = new;
 		*stack = new;
 	}
 	return (0);
@@ -321,7 +322,7 @@ int pchar_func(stack_t **stack, unsigned int line_num
 	if (isascii(top->n))
 		printf("%c\n", top->n);
 	else
-		return(512);
+		return (512);
 
 	return (0);
 }
@@ -330,7 +331,7 @@ int pchar_func(stack_t **stack, unsigned int line_num
   * pstr_func - function for push opcode
   * @stack: the monty stack
   * @line_num: the current line number
-  * Return: 0 if successful, an error num otherwise
+  * Return: always 0
   */
 int pstr_func(stack_t **stack, unsigned int line_num
 		__attribute__((unused)), ...)
@@ -364,7 +365,7 @@ int pstr_func(stack_t **stack, unsigned int line_num
   * rotl_func - function for push opcode
   * @stack: the monty stack
   * @line_num: the current line number
-  * Return: 0 if successful, an error num otherwise
+  * Return: always 0
   */
 int rotl_func(stack_t **stack, unsigned int line_num
 		__attribute__((unused)), ...)
@@ -400,6 +401,38 @@ int rotl_func(stack_t **stack, unsigned int line_num
 
 	second_top->next = NULL;
 	*stack = second_top;
+
+	return (0);
+}
+
+/**
+  * rotr_func - function for push opcode
+  * @stack: the monty stack
+  * @line_num: the current line number
+  * Return: always 0
+  */
+int rotr_func(stack_t **stack, unsigned int line_num
+		__attribute__((unused)), ...)
+{
+	stack_t *top, *last, *second_last;
+
+	top = *stack;
+	if (top == NULL)
+		return (0);
+
+	last = top->prev;
+	while (last && last->prev)
+		last = last->prev;
+
+	if (last)
+	{
+		second_last = last->next;
+		top->next = last;
+		last->prev = top;
+		last->next = NULL;
+		second_last->prev = NULL;
+		*stack = last;
+	}
 
 	return (0);
 }
